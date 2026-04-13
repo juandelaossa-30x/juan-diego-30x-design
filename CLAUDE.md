@@ -169,9 +169,20 @@ All 30x apps are built with:
 - **Tailwind CSS v4.2**
 - **React Aria Components** (accessibility foundation)
 - **Untitled UI** (component library)
-- **@untitledui/icons** (1,100+ line icons)
+- **@heroicons/react** (Heroicons Solid — the ONLY icon library allowed)
 - **motion** (Framer Motion) for animations
 - **tailwindcss-animate** for utility animations
+
+### Icon Library — MANDATORY: Heroicons Solid ONLY
+
+**NEVER** use Lucide, Phosphor, Radix Icons, or any other icon library. **ONLY** Heroicons from `@heroicons/react/24/solid`.
+
+**Icon Colors:**
+- Inactive/default: `text-[#999]`
+- Active/selected: `text-[#1A1A1A]`
+- Hover: transition from `#999` to `#1A1A1A`
+
+Reference: `references/heroicons/` contains the full Heroicons repo.
 
 ### Import Conventions
 
@@ -195,22 +206,34 @@ user-profile.tsx     // Correct
 userProfile.tsx      // WRONG
 ```
 
-### Icon Usage
+### Icon Usage — Heroicons Solid
 
 ```typescript
-import { Home01, Settings01, ChevronDown } from "@untitledui/icons";
+// CORRECT — Always import from @heroicons/react/24/solid
+import { HomeIcon, Cog6ToothIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
-// As component reference (preferred)
-<Button iconLeading={ChevronDown}>Options</Button>
+// Standalone icon — inactive state
+<HomeIcon className="size-5 text-[#999]" aria-hidden="true" />
 
-// Standalone
-<Home01 className="size-5 text-fg-secondary" />
+// Active state
+<HomeIcon className="size-5 text-[#1A1A1A]" aria-hidden="true" />
 
-// As JSX element — MUST include data-icon
-<Button iconLeading={<ChevronDown data-icon className="size-4" />}>Options</Button>
+// With hover transition
+<HomeIcon className="size-5 text-[#999] transition duration-100 ease-linear hover:text-[#1A1A1A]" />
+
+// WRONG — Never use these
+import { Home } from "lucide-react";           // BANNED
+import { House } from "@phosphor-icons/react";  // BANNED
+import { HomeIcon } from "@radix-ui/react-icons"; // BANNED
 ```
 
 Icon sizes: `size-4` (16px), `size-5` (20px), `size-6` (24px).
+
+When using icons inside Untitled UI components (Button, Badge, etc.), pass them via `iconLeading`/`iconTrailing` props with `data-icon` attribute:
+```typescript
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+<Button iconLeading={<ChevronDownIcon data-icon className="size-4" />}>Options</Button>
+```
 
 ---
 
@@ -350,6 +373,7 @@ juan-diego-30x-design/
 │   └── quieter/                       # Calming/reducing noise
 ├── references/                        # External reference repos
 │   ├── untitled-ui-react/             # Untitled UI React (upstream)
+│   ├── heroicons/                     # Heroicons (ONLY icon library)
 │   ├── shadcn-ui/                     # shadcn/ui (patterns reference)
 │   └── gstack/                        # gstack (QA, review, ship skills)
 └── .gitignore
@@ -380,7 +404,7 @@ cp -R juan-diego-30x-design/design-system/utils my-30x-app/src/
 
 # Install required dependencies
 cd my-30x-app
-npm install react-aria react-aria-components @untitledui/icons motion tailwindcss-animate tailwind-merge
+npm install react-aria react-aria-components @heroicons/react motion tailwindcss-animate tailwind-merge
 ```
 
 ### Skills Hierarchy
