@@ -425,6 +425,33 @@ When building, apply skills in this order of priority:
 
 ---
 
+## Color in Data Visualization
+
+The grayscale palette is for **structural UI** (borders, backgrounds, text). But charts, badges, pipeline bars, and trend indicators should use **real color** from Untitled UI's palette:
+
+| Color | Hex | Use For |
+|-------|-----|---------|
+| Green | `#22C55E` | Revenue, success, closed won, positive trends |
+| Blue | `#3B82F6` | Info, qualification, contacts |
+| Indigo | `#6366F1` | Brand accent, proposals, deals |
+| Orange | `#F97316` | Warning, negotiation, attention |
+| Red | `#EF4444` | Error, negative trends, destructive |
+| Pink | `#EC4899` | Accent variety (avatars, secondary data) |
+
+**Colored badges pattern** (tinted background + ring):
+```tsx
+// Green badge
+<span className="bg-[#F0FDF4] text-[#22C55E] ring-1 ring-inset ring-[#22C55E]/20 rounded-full px-2.5 py-0.5 text-xs font-medium">
+  Closed Won
+</span>
+```
+
+**What stays `#1A1A1A`:** Structural icons (sidebar nav, metric card icons, toolbar icons). These are NOT data — they're UI chrome.
+
+**What gets color:** Chart lines/fills, pipeline bars, deal stage badges, trend arrows (green up / red down), avatar backgrounds for people.
+
+---
+
 ## Do's and Don'ts
 
 ### DO
@@ -439,6 +466,8 @@ When building, apply skills in this order of priority:
 - Use Untitled UI components from the design system
 - Keep shadows extremely subtle (max 0.08 opacity)
 - Use `rounded-lg` (12px) for cards, `rounded-md` (8px) for buttons
+- Use semantic colors for data: green=money/success, blue=info, red=error
+- Keep structural icons in `#1A1A1A` — color is for DATA, not chrome
 
 ### DON'T
 - Use pure black (`#000000`) for body text
@@ -447,6 +476,8 @@ When building, apply skills in this order of priority:
 - Use heavy shadows (>0.1 opacity)
 - Use multiple accent colors simultaneously
 - Use raw Tailwind gray classes (`text-gray-900`, `bg-gray-50`)
+- Color structural icons (sidebar, toolbar) — keep those `#1A1A1A` / `#999`
+- Make everything colorful — color is intentional, for data meaning only
 - Use generic AI templates or bootstrap-looking layouts
 - Skip the design system and freestyle components
 - Use emojis in UI (use Untitled UI icons instead)
