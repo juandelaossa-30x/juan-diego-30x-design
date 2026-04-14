@@ -458,7 +458,7 @@ cp -R juan-diego-30x-design/design-system/utils my-30x-app/src/
 
 # Install required dependencies
 cd my-30x-app
-npm install react-aria react-aria-components @heroicons/react motion tailwindcss-animate tailwind-merge
+npm install react-aria react-aria-components @heroicons/react motion tailwindcss-animate tailwind-merge next-themes
 ```
 
 ### Skills Hierarchy
@@ -496,23 +496,42 @@ The grayscale palette is for **structural UI** (borders, backgrounds, text). But
 
 **ALL badges MUST have `ring-1 ring-inset`**. This is the Untitled UI pattern from Figma. A badge without the ring border looks unfinished and cheap. The ring adds the subtle depth that makes badges feel polished.
 
+**Light mode:**
 ```tsx
-// CORRECT — Badge with ring border (Untitled UI pattern)
 <span className="rounded-full bg-[#F0FDF4] px-2.5 py-0.5 text-xs font-semibold text-[#22C55E] ring-1 ring-inset ring-[#22C55E]/20">
   Closed Won
 </span>
+```
 
-// CORRECT — All color variants follow the same pattern
-<span className="... bg-[#EFF6FF] text-[#3B82F6] ring-1 ring-inset ring-[#3B82F6]/20">Qualification</span>
-<span className="... bg-[#EEF2FF] text-[#6366F1] ring-1 ring-inset ring-[#6366F1]/20">Proposal</span>
-<span className="... bg-[#FFF7ED] text-[#F97316] ring-1 ring-inset ring-[#F97316]/20">Negotiation</span>
-<span className="... bg-[#FEF2F2] text-[#EF4444] ring-1 ring-inset ring-[#EF4444]/20">Error</span>
-<span className="... bg-secondary text-tertiary ring-1 ring-inset ring-secondary">Neutral</span>
+**Dark mode — badges use color/10 bg + lighter text + color/30 ring:**
+```tsx
+// CORRECT — Badge with dark mode support
+<span className="bg-[#F0FDF4] dark:bg-[#22C55E]/10 text-[#22C55E] dark:text-[#4ADE80] ring-1 ring-inset ring-[#22C55E]/20 dark:ring-[#22C55E]/30 ...">
+  Closed Won
+</span>
 
-// WRONG — No ring border (looks flat and unfinished)
+// All variants — light | dark
+// Green:  bg-[#F0FDF4] dark:bg-[#22C55E]/10 | text-[#22C55E] dark:text-[#4ADE80] | ring-[#22C55E]/20 dark:ring-[#22C55E]/30
+// Blue:   bg-[#EFF6FF] dark:bg-[#3B82F6]/10 | text-[#3B82F6] dark:text-[#93C5FD] | ring-[#3B82F6]/20 dark:ring-[#3B82F6]/30
+// Indigo: bg-[#EEF2FF] dark:bg-[#6366F1]/10 | text-[#6366F1] dark:text-[#A5B4FC] | ring-[#6366F1]/20 dark:ring-[#6366F1]/30
+// Orange: bg-[#FFF7ED] dark:bg-[#F97316]/10 | text-[#F97316] dark:text-[#FB923C] | ring-[#F97316]/20 dark:ring-[#F97316]/30
+// Red:    bg-[#FEF2F2] dark:bg-[#EF4444]/10 | text-[#EF4444] dark:text-[#FCA5A5] | ring-[#EF4444]/20 dark:ring-[#EF4444]/30
+// Neutral: bg-secondary text-tertiary ring-1 ring-inset ring-secondary (works both modes)
+
+// WRONG — No ring border
 <span className="rounded-full bg-[#F0FDF4] px-2.5 py-0.5 text-xs font-semibold text-[#22C55E]">
   Closed Won
 </span>
+```
+
+### Charts in Dark Mode — Use 30x Accent `#E9FF7B`
+
+In dark mode, the main chart line should switch from green (`#22C55E`) to the 30x accent yellow (`#E9FF7B`). The yellow looks incredible on dark backgrounds and reinforces the 30x brand:
+
+```tsx
+const isDark = theme === "dark";
+const revenueColor = isDark ? "#E9FF7B" : "#22C55E";
+const gridColor = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
 ```
 
 The pattern is always: `bg-[tinted-light] text-[color] ring-1 ring-inset ring-[color]/20`
