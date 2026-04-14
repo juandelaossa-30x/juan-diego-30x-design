@@ -152,7 +152,53 @@ box-shadow: 0px 1px 2px rgba(0,0,0,0.01), 0px 2px 6px rgba(0,0,0,0.02), 0px 4px 
 | `rounded-xl` | 16px | Featured cards |
 | `rounded-full` | 9999px | Pills, avatars |
 
-### Rule 4: Animations — Snappy, Not Flashy
+### Rule 4: Light/Dark Mode Toggle — MANDATORY in Every App
+
+**Every 30x app MUST include a light/dark mode toggle.** The 30x accent yellow (`#E9FF7B`) looks incredible on dark backgrounds — dark mode IS the 30x signature look.
+
+**Setup (next-themes + Untitled UI):**
+
+```tsx
+// app/components/theme-provider.tsx
+"use client";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+    return (
+        <NextThemesProvider
+            attribute="class"
+            defaultTheme="light"
+            value={{ light: "light", dark: "dark-mode" }}
+        >
+            {children}
+        </NextThemesProvider>
+    );
+}
+```
+
+```tsx
+// app/layout.tsx — wrap body with ThemeProvider
+<html suppressHydrationWarning>
+  <body>
+    <ThemeProvider>{children}</ThemeProvider>
+  </body>
+</html>
+```
+
+**Toggle button** — place in the top-right of the header, use `MoonIcon`/`SunIcon` from Heroicons Solid:
+```tsx
+import { useTheme } from "next-themes";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
+
+const { theme, setTheme } = useTheme();
+<button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+  {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+</button>
+```
+
+The Untitled UI theme.css already defines all dark mode variables under `.dark-mode` class. The `value` map in next-themes maps `"dark"` to the `"dark-mode"` class that Untitled UI expects.
+
+### Rule 5: Animations — Snappy, Not Flashy
 
 Default CSS transition for hover/color changes:
 ```tsx
