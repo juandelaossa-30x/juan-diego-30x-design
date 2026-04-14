@@ -152,7 +152,26 @@ box-shadow: 0px 1px 2px rgba(0,0,0,0.01), 0px 2px 6px rgba(0,0,0,0.02), 0px 4px 
 | `rounded-xl` | 16px | Featured cards |
 | `rounded-full` | 9999px | Pills, avatars |
 
-### Rule 4: Light/Dark Mode Toggle — MANDATORY in Every App
+### Rule 4: 30x Logo Usage
+
+The official 30x logos are in `design-system/` (SVG). Use the correct variant per background:
+
+```tsx
+{/* Light mode: dark logo on white bg */}
+<img src="/30x-logo-dark.svg" alt="30x" className="h-5 w-auto dark:hidden" />
+{/* Dark mode: light logo on dark bg */}
+<img src="/30x-logo-light.svg" alt="30x" className="hidden h-5 w-auto dark:block" />
+```
+
+| Logo file | Fill color | Use on |
+|-----------|-----------|--------|
+| `30x-logo-dark.svg` | `#010101` | Light backgrounds |
+| `30x-logo-light.svg` | `#F2F2F2` | Dark backgrounds |
+| `30x-logo-accent.svg` | `#E9FF7B` | Hero sections on black |
+
+**NEVER** recreate the 30x logo with text/CSS. Always use the official SVG files.
+
+### Rule 5: Light/Dark Mode Toggle — MANDATORY in Every App
 
 **Every 30x app MUST include a light/dark mode toggle.** The 30x accent yellow (`#E9FF7B`) looks incredible on dark backgrounds — dark mode IS the 30x signature look.
 
