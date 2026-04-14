@@ -91,25 +91,33 @@ fg-secondary        // Standard icons
 fg-tertiary         // Muted icons
 ```
 
-### Rule 2: Typography — Inter with Aggressive Tracking
+### Rule 2: Typography — Inter, Heavy Weights, Tight Tracking
 
-30x uses **Inter** exclusively. Aggressive negative letter-spacing at display sizes:
+30x uses **Inter** exclusively. The key to making Inter NOT look generic: **push weights heavier than default** and **tighten letter-spacing aggressively**.
 
-| Size | Letter Spacing | Line Height | Usage |
-|------|----------------|-------------|-------|
-| Hero (64px) | `-0.05em` | 1.05 | Main headlines |
-| Display 2XL (72px) | `-0.05em` | 1.05 | Hero sections |
-| Display XL (60px) | `-0.04em` | 1.10 | Page titles |
-| Display LG (48px) | `-0.03em` | 1.10 | Section titles |
-| Display MD (36px) | `-0.025em` | 1.15 | Card titles |
-| Body (16px) | `-0.01em` | 1.60 | Reading text |
-| Small (14px) | `0` | 1.50 | UI labels |
+**CRITICAL:** Default `font-normal` (400) makes Inter look like every other app. Bump everything up one weight level. Use `font-medium` (500) where you'd normally use regular, `font-semibold` (600) where you'd use medium, and `font-bold` (700) for headings.
 
-**Weight Hierarchy:**
-- `400` — Reading (body text)
-- `500` — Interacting (UI elements, navigation)
-- `600` — Emphasizing (labels, buttons, CTAs)
-- `700` — Announcing (headlines, hero text)
+| Size | Weight | Letter Spacing | Line Height | Usage |
+|------|--------|----------------|-------------|-------|
+| Hero (64px) | `700` bold | `-0.05em` | 1.05 | Main headlines |
+| Display 2XL (72px) | `700` bold | `-0.05em` | 1.05 | Hero sections |
+| Display XL (60px) | `700` bold | `-0.04em` | 1.10 | Page titles |
+| Display LG (48px) | `700` bold | `-0.03em` | 1.10 | Section titles |
+| Display MD (36px) | `700` bold | `-0.025em` | 1.15 | Card titles |
+| Card heading (18px) | `700` bold | `-0.02em` | 1.30 | Card/section headings |
+| Big numbers | `700` bold | `-0.03em` | 1.00 | Metric values, KPIs |
+| Labels (14px) | `600` semibold | `-0.01em` | 1.40 | Nav items, table headers, form labels |
+| Body (16px) | `500` medium | `-0.01em` | 1.60 | Paragraphs, descriptions |
+| Small (14px) | `500` medium | `-0.01em` | 1.50 | Supporting text |
+| Caption (12px) | `500` medium | `0` | 1.40 | Timestamps, metadata |
+
+**Weight Hierarchy (30x-specific):**
+- `500` medium — Default body text, descriptions, supporting content
+- `600` semibold — Navigation items, table headers, form labels, badges, sidebar items
+- `700` bold — Headlines, card headings, metric values, section titles
+- `400` regular — ONLY for long-form prose (blog posts, documentation paragraphs)
+
+**The letter-spacing trick:** Even at body sizes, use `-0.01em`. At heading sizes, go to `-0.02em` or `-0.03em`. This is what separates "premium" Inter from "generic" Inter.
 
 ### Rule 3: The 30x Visual Language
 
