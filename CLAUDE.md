@@ -446,17 +446,51 @@ The grayscale palette is for **structural UI** (borders, backgrounds, text). But
 | Red | `#EF4444` | Error, negative trends, destructive |
 | Pink | `#EC4899` | Accent variety (avatars, secondary data) |
 
-**Colored badges pattern** (tinted background + ring):
+### Badge Border Rule — MANDATORY
+
+**ALL badges MUST have `ring-1 ring-inset`**. This is the Untitled UI pattern from Figma. A badge without the ring border looks unfinished and cheap. The ring adds the subtle depth that makes badges feel polished.
+
 ```tsx
-// Green badge
-<span className="bg-[#F0FDF4] text-[#22C55E] ring-1 ring-inset ring-[#22C55E]/20 rounded-full px-2.5 py-0.5 text-xs font-medium">
+// CORRECT — Badge with ring border (Untitled UI pattern)
+<span className="rounded-full bg-[#F0FDF4] px-2.5 py-0.5 text-xs font-semibold text-[#22C55E] ring-1 ring-inset ring-[#22C55E]/20">
+  Closed Won
+</span>
+
+// CORRECT — All color variants follow the same pattern
+<span className="... bg-[#EFF6FF] text-[#3B82F6] ring-1 ring-inset ring-[#3B82F6]/20">Qualification</span>
+<span className="... bg-[#EEF2FF] text-[#6366F1] ring-1 ring-inset ring-[#6366F1]/20">Proposal</span>
+<span className="... bg-[#FFF7ED] text-[#F97316] ring-1 ring-inset ring-[#F97316]/20">Negotiation</span>
+<span className="... bg-[#FEF2F2] text-[#EF4444] ring-1 ring-inset ring-[#EF4444]/20">Error</span>
+<span className="... bg-secondary text-tertiary ring-1 ring-inset ring-secondary">Neutral</span>
+
+// WRONG — No ring border (looks flat and unfinished)
+<span className="rounded-full bg-[#F0FDF4] px-2.5 py-0.5 text-xs font-semibold text-[#22C55E]">
   Closed Won
 </span>
 ```
 
-**What stays `#1A1A1A`:** Structural icons (sidebar nav, metric card icons, toolbar icons). These are NOT data — they're UI chrome.
+The pattern is always: `bg-[tinted-light] text-[color] ring-1 ring-inset ring-[color]/20`
 
-**What gets color:** Chart lines/fills, pipeline bars, deal stage badges, trend arrows (green up / red down), avatar backgrounds for people.
+### Metric Cards with Mini Sparkline Charts
+
+Metric cards should include a mini sparkline chart (56px tall, 112px wide) aligned to the bottom-right of the card. This is the Untitled UI "Metric item > Chart 01" pattern:
+
+```
+┌─────────────────────────────────┐
+│ Revenue Total                   │
+│                                 │
+│ $2.4M              ╭──╮  ╭───  │
+│ ↑ 12%  vs last Q   ╯  ╰──╯    │
+└─────────────────────────────────┘
+```
+
+Layout: Title (top) → Number + Change (bottom-left) + Sparkline (bottom-right, `items-end` alignment).
+
+Sparkline colors match the trend: green (`#22C55E`) for positive, red (`#EF4444`) for negative. Use a gradient fill with 12% opacity at top fading to 0.
+
+**What stays `#1A1A1A`:** Structural icons (sidebar nav, toolbar icons). These are NOT data — they're UI chrome.
+
+**What gets color:** Chart lines/fills, pipeline bars, deal stage badges, trend arrows (green up / red down), avatar backgrounds for people, sparkline charts.
 
 ---
 
