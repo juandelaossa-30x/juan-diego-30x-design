@@ -1,0 +1,30 @@
+{
+    "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+    "name": "30X Design Studio",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm",
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    "postCreateCommand": "npm install -g @anthropic-ai/claude-code",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "esbenp.prettier-vscode",
+                "bradlc.vscode-tailwindcss",
+                "dbaeumer.vscode-eslint"
+            ],
+            "settings": {
+                "task.allowAutomaticTasks": "on",
+                "editor.formatOnSave": true,
+                "editor.defaultFormatter": "esbenp.prettier-vscode"
+            }
+        }
+    },
+    "forwardPorts": [3000],
+    "portsAttributes": {
+        "3000": {
+            "label": "Next.js dev",
+            "onAutoForward": "ignore"
+        }
+    }
+}
